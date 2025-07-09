@@ -111,6 +111,12 @@ main{
     font-size: 1.5em;
     line-height: 2em;
     letter-spacing: 4px;
+    margin-top: 10px;
+}
+
+.location-left .country{
+    line-height: 1em;
+    margin-bottom: 10px;
 }
 
 .location h2{
@@ -135,7 +141,7 @@ main{
     display: flex;
     align-items: center;
     margin-top: 20px;
-    width: 45%;
+    width: 60%;
     justify-content: space-between;
 }
 
@@ -211,10 +217,12 @@ li{
     position: absolute;
     width: 25vw;
     height: 25vw;
-    background-color: aqua;
+    background-color: rgba(255, 255, 255, 0.3);
     z-index: 30;
     transform: translateY(50%);
     left: 37.5vw;
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
 }
 
 
