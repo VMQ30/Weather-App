@@ -36,3 +36,22 @@ async function getWeatherData(country, firstDate, secondDate){
 }
 
 getWeatherData('pateros', '2025-07-04', '2025-07-10')
+
+const settings = document.querySelector('.settings');
+const settingDroppdown = document.querySelector('.settings-box');
+
+settings.addEventListener("mouseenter", () => {
+    settingDroppdown.classList.add('visible')
+})
+
+settings.addEventListener('mouseleave', () => {
+    settingDroppdown.classList.remove('visible')
+})
+
+settingDroppdown.addEventListener("mouseenter", () => {
+    settingDroppdown.classList.add('visible')
+})
+
+settingDroppdown.addEventListener('mouseleave', () => {
+    settingDroppdown.classList.remove('visible')
+})
