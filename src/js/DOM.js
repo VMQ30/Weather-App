@@ -27,7 +27,7 @@ export function displayWeatherData(city, country, coord, temperature, tempFeelsL
         
         <p class = 'country'>${country}</p>
         <p class = 'date'>${date}</p>
-        <p class = 'coords'>${coord}</p>
+        <p class = 'coords'>Coords: ${coord}</p>
         
         <div class = 'sun'>
             <div class = 'sunrise-info'>
@@ -48,11 +48,11 @@ export function displayWeatherData(city, country, coord, temperature, tempFeelsL
 
     <div class = 'location-right'>
         <div class = 'weather'>
-            <h1 class = 'temperature'>${temperature}</h1>
+            <h1 class = 'temperature'>${temperature}°C</h1>
             <img src = '' class = 'weather-icon'>
         </div>
         <h3 class = 'time'>${time}</h3>
-        <p class = 'feels-like'>${tempFeelsLike}</p>
+        <p class = 'feels-like'>Temperature Feels Like: ${tempFeelsLike}°C</p>
         <p class = 'weather-description'>${condition}</p>
     </div>`
 }

@@ -53,7 +53,6 @@ async function setWeatherData(){
     console.log(formattedDate);
 
     try{
-
         const weather = await getWeatherData('pateros', formattedDate, '2025-07-10')
         
         const city = weather.location.city

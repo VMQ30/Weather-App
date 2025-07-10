@@ -30,12 +30,22 @@ header{
 
 header input{
     width: 35vw;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 50px;
     background-color: transparent;
-    border:rgba(255, 255, 255, 0.7) 2px solid;
+    color: rgba(255, 255, 255, 0.7);
+    border:none;
     outline: none;
-    color: rgba(255, 255, 255, 0.7)
+    box-shadow: inset -5px -5px 5px rgba(255, 255, 255, 0.2),
+                inset 5px 5px 5px rgba(0,0,0,0.3);
+    caret-color: rgba(255, 255, 255, 0.5);
+    /* border:rgba(255, 255, 255, 0.7) 2px solid;
+    outline: none;
+    color: rgba(255, 255, 255, 0.7) */
+}
+
+header input::placeholder{
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .settings{
@@ -43,13 +53,15 @@ header input{
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border:rgba(255, 255, 255, 0.7) 2px solid;
+    /* border:rgba(255, 255, 255, 0.7) 2px solid; */
     border-radius: 50%;
     width: 40px;
     height: 40px;
     margin-left: 15px;
     cursor: pointer;
     position: relative;
+    box-shadow: inset -5px -5px 5px rgba(255, 255, 255, 0.2),
+                inset 5px 5px 5px rgba(0,0,0,0.5);
 }
 
 body{
@@ -111,12 +123,14 @@ main{
     font-size: 1.5em;
     line-height: 2em;
     letter-spacing: 4px;
-    margin-top: 10px;
+    padding: 0px 10px;
+    transition: all ease-in-out 0.3s;
 }
 
 .location-left .country{
     line-height: 1em;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
 .location h2{
@@ -225,7 +239,13 @@ li{
     border-radius: 20px;
 }
 
-
+p:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    text-shadow: -3px 3px 5px rgba(0,0,0,0.8);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3),
+                inset 5px 5px 7px rgba(255, 255, 255, 0.3)
+}
 /* .location-left,
 .location-right{
     background-color: rgba(0, 0, 0, 0.1);
