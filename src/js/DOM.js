@@ -3,7 +3,6 @@ import { getSunsetSVG, getSunriseSVG } from './svg.js'
 export function displayWeatherData(city, country, coord, temperature, tempFeelsLike, condition, time, date, sunset, sunrise){
     const loader = document.querySelector('.loader')
     loader.style.display = 'block'
-    console.log(city)
 
     let mainDisplay = document.querySelector('.location-details');
     mainDisplay.innerHTML = `

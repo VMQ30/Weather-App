@@ -2,7 +2,7 @@ import { setDropDown } from './dropdown.js'
 import { displayWeatherData } from './DOM.js'
 
 async function getWeatherData(city, date, secondDate){
-    const data = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${date}/${secondDate}?unitGroup=us&include=current%2Cdays%2Calerts&key=ZDLHZQNCD3ZBG72RLWFD5BLL2&contentType=json`, {mode: 'cors'})
+    const data = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays%2Calerts&key=ZDLHZQNCD3ZBG72RLWFD5BLL2&contentType=json`, {mode: 'cors'})
     const weatherData = await data.json()
     console.log(weatherData)
 
@@ -33,16 +33,28 @@ async function getWeatherData(city, date, secondDate){
     return{
         location: {country, city, coord},
         weather: {temperature, tempFeelsLike, conditions},
-        time: {date, time},
+        time: {date, time, timezone},
         sun: {sunrise, sunset}
     }
 }
 
 async function setWeatherData(){
+    
     const loader = document.querySelector('.loader')
     loader.style.display = 'block'
+
+    const currentDate = new Date();
+
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${day}-${month}-${year}`;
+    console.log(formattedDate);
+
     try{
-        const weather = await getWeatherData('pateros', '2025-07-04', '2025-07-10')
+
+        const weather = await getWeatherData('pateros', formattedDate, '2025-07-10')
         
         const city = weather.location.city
         const country = weather.location.country
@@ -53,14 +65,14 @@ async function setWeatherData(){
         const condition = weather.weather.conditions
 
         const time = weather.time.time
+        const timezone = weather.time.timezone
         const date = weather.time.date
 
         const sunrise = weather.sun.sunrise
         const sunset = weather.sun.sunset
 
         displayWeatherData(city, country, coord, temperature, tempFeelsLike, condition, time, date, sunset, sunrise)
-
-        console.log(city)
+        getTime(timezone)
     }
     catch{
         
@@ -69,6 +81,26 @@ async function setWeatherData(){
         loader.style.display = 'none'
     }
 }
+
+function getTime(timezone){
+    const timeDisplay = document.querySelector('.time')
+    updateTime()
+
+    setInterval(updateTime, 1000)
+
+    function updateTime(){
+        const currentTime = new Date()
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: timezone,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        })
+        timeDisplay.textContent = formatter.format(currentTime)
+    }
+}
+
 
 (function(){
     setDropDown()
