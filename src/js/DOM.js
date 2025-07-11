@@ -134,6 +134,7 @@ export function displayMoreWeatherData(uvIndex, humidity, rainProbability, windD
 
     let windSpeedText = document.getElementById('wind-speed')
     switchSpeedMetrics(windSpeed, windSpeedText)
+    
 }
 
 export function displayFutureWeatherData(futureArray){
@@ -192,14 +193,14 @@ export function displayFutureWeatherData(futureArray){
         futureList.appendChild(mainPanel)
 
         switchFutureTempMetrics(day.temperature, tempInfo)
+        switchDarkMode()
     })
 }
 
 function switchTempMetrics(temperature, tempFeelsLike, temperatureText, temperatureFeelsLikeText){
     const tempMetric = document.querySelector('.temp-metric')
     let currentMetric = 'C'
-    // const speedMetric = document.querySelector('.speed-metric')
-    // const darkMode = document.querySelector('.dark-mode')
+
     tempMetric.addEventListener("click", () => {
         temperature = parseFloat(temperature)
         tempFeelsLike = parseFloat(tempFeelsLike)
@@ -234,11 +235,13 @@ function switchFutureTempMetrics(temperature, temperatureText){
             temperature = temperature * (9 / 5) + 32
             temperatureText.textContent = `${temperature.toFixed(1)}°F`
             currentMetric = 'F'
+            tempMetric.textContent = 'Fahrenheit '
         }
         else if(currentMetric === 'F'){
             temperature = (temperature - 32) * 5 / 9
             temperatureText.textContent = `${temperature.toFixed(1)}°C`
             currentMetric = 'C'
+            tempMetric.textContent = 'Celsius'
         }  
     })
 }
@@ -254,11 +257,53 @@ function switchSpeedMetrics(windSpeed, windSpeedText){
             windSpeed = windSpeed * 1.60934
             windSpeedText.textContent = `${windSpeed.toFixed(1)} kph`
             currentMetric = 'kph'
+            speedMetric.textContent = 'kph'
         }
         else if(currentMetric === 'kph'){
             windSpeed = windSpeed / 1.60934
             windSpeedText.textContent = `${windSpeed.toFixed(1)} mph`
             currentMetric = 'mph'
+            speedMetric.textContent = 'mph'
         }  
+    })
+}
+
+function switchDarkMode(){
+    let currentState = 'normal mode'
+    const darkMode = document.querySelector('.dark-mode')
+    let background = document.querySelector('body')
+    let panels = document.querySelectorAll('.future-weather')
+    let panelsInfo = document.querySelectorAll('.future-weather h3')
+
+    darkMode.addEventListener("click", () => {
+        if(currentState === 'normal mode'){
+            background.style.background = 'linear-gradient(rgb(0, 0, 43) 7%, rgb(0, 0, 104) 49%, rgb(0, 25, 87) 70%, rgb(6, 53, 125) 98%)'
+            
+            panels.forEach((panel) => {
+                panel.style.background = 'rgba(0, 0, 0, 0.2)'
+            })
+
+            panelsInfo.forEach((panel) => {
+                panel.style.color = 'rgba(188, 211, 228, 0.915)'
+            })
+
+            darkMode.textContent = 'Dark Mode'
+            currentState = 'dark mode'
+        }
+
+        else if(currentState === 'dark mode'){
+            background.style.background = 'linear-gradient(rgb(0, 0, 133) 7%, rgb(41, 116, 255) 49%, rgb(103, 146, 255) 70%, rgb(181, 211, 255) 98%)'
+            
+            panels.forEach((panel) => {
+                panel.style.background = 'rgba(255, 255, 255, 0.2)'
+            })
+
+            panelsInfo.forEach((panel) => {
+                panel.style.color = 'rgb(44, 44, 221)'
+            })
+
+            darkMode.textContent = 'Light Mode'
+            currentState = 'normal mode'
+        }
     })
 }
