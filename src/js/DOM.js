@@ -61,7 +61,7 @@ export function displayWeatherData(city, country, coord, temperature, tempFeelsL
     </div>`
 }
 
-export function displayMoreWeatherData(){
+export function displayMoreWeatherData(uvIndex, humidity, rainProbability, windDirection, windSpeed){
     const display = document.querySelector('.location-more-info')
     display.innerHTML = `
     <div class = 'more-info'>
@@ -72,7 +72,7 @@ export function displayMoreWeatherData(){
             <h3 class = 'more-info-header'>Humidity</h3>
         </div>
 
-        <p class = 'more-info-details'>Details</p>
+        <p class = 'more-info-details'>${humidity}%</p>
     </div>
 
     <div class = 'more-info'>
@@ -82,7 +82,7 @@ export function displayMoreWeatherData(){
             </span>
             <h3 class = 'more-info-header'>UV Index</h3>
         </div>
-        <p class = 'more-info-details'>Details</p>
+        <p class = 'more-info-details'>${uvIndex}</p>
     </div>
 
     <div class = 'more-info'>
@@ -92,7 +92,7 @@ export function displayMoreWeatherData(){
             </span>
         <h3 class = 'more-info-header'>Chance of Rain</h3>
         </div>
-        <p class = 'more-info-details'>Details</p>
+        <p class = 'more-info-details'>${rainProbability}%</p>
     </div>
     <div class = 'more-info'>
         <div>
@@ -102,7 +102,7 @@ export function displayMoreWeatherData(){
             <h3 class = 'more-info-header'>Wind Direction</h3>
         </div>
         
-        <p class = 'more-info-details'>Details</p>
+        <p class = 'more-info-details'>${windDirection}°</p>
     </div>
     
     <div class = 'more-info'>
@@ -113,7 +113,7 @@ export function displayMoreWeatherData(){
             <h3 class = 'more-info-header'>Wind Speed</h3>
         </div>
         
-        <p class = 'more-info-details'>Details</p>
+        <p class = 'more-info-details'>${windSpeed} mph</p>
     </div>
     `
 }
