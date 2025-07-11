@@ -1,4 +1,4 @@
-import { getSunsetSVG, getSunriseSVG } from './svg.js'
+import { getSunsetSVG, getSunriseSVG, getHumiditySVG, getUVSVG, getRainProbSVG, getWindDirectionSVG, getWindSpeedSVG } from './svg.js'
 
 export function displayWeatherData(city, country, coord, temperature, tempFeelsLike, condition, time, date, sunset, sunrise){
     const loader = document.querySelector('.loader')
@@ -54,5 +54,66 @@ export function displayWeatherData(city, country, coord, temperature, tempFeelsL
         <h3 class = 'time'>${time}</h3>
         <p class = 'feels-like'>Temperature Feels Like: ${tempFeelsLike}°C</p>
         <p class = 'weather-description'>${condition}</p>
+    </div>
+    
+    <div class = 'location-bottom>
+    
     </div>`
+}
+
+export function displayMoreWeatherData(){
+    const display = document.querySelector('.location-more-info')
+    display.innerHTML = `
+    <div class = 'more-info'>
+        <div>
+            <span>
+                ${getHumiditySVG()}
+            </span>
+            <h3 class = 'more-info-header'>Humidity</h3>
+        </div>
+
+        <p class = 'more-info-details'>Details</p>
+    </div>
+
+    <div class = 'more-info'>
+        <div>
+            <span>
+                ${getUVSVG()}
+            </span>
+            <h3 class = 'more-info-header'>UV Index</h3>
+        </div>
+        <p class = 'more-info-details'>Details</p>
+    </div>
+
+    <div class = 'more-info'>
+        <div>
+            <span>
+                ${getRainProbSVG()}
+            </span>
+        <h3 class = 'more-info-header'>Chance of Rain</h3>
+        </div>
+        <p class = 'more-info-details'>Details</p>
+    </div>
+    <div class = 'more-info'>
+        <div>
+            <span>
+                ${getWindDirectionSVG()}
+            </span>
+            <h3 class = 'more-info-header'>Wind Direction</h3>
+        </div>
+        
+        <p class = 'more-info-details'>Details</p>
+    </div>
+    
+    <div class = 'more-info'>
+        <div>
+            <span>
+                ${getWindSpeedSVG()}
+            </span>
+            <h3 class = 'more-info-header'>Wind Speed</h3>
+        </div>
+        
+        <p class = 'more-info-details'>Details</p>
+    </div>
+    `
 }

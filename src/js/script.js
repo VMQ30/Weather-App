@@ -1,7 +1,7 @@
 import { setDropDown } from './dropdown.js'
-import { displayWeatherData } from './DOM.js'
+import { displayWeatherData, displayMoreWeatherData } from './DOM.js'
 
-async function getWeatherData(city, date, secondDate){
+async function getWeatherData(city, date){
     const data = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays%2Calerts&key=ZDLHZQNCD3ZBG72RLWFD5BLL2&contentType=json`, {mode: 'cors'})
     const weatherData = await data.json()
     console.log(weatherData)
@@ -12,7 +12,7 @@ async function getWeatherData(city, date, secondDate){
     const tempFeelsLike = weatherData.currentConditions.feelslike
     const uvIndex = weatherData.currentConditions.uvindex
 
-    const humidty = weatherData.currentConditions.humidity
+    const humidity = weatherData.currentConditions.humidity
     const rainProbability = weatherData.currentConditions.precipprob
 
     const windDirection = weatherData.currentConditions.winddir
@@ -34,7 +34,8 @@ async function getWeatherData(city, date, secondDate){
         location: {country, city, coord},
         weather: {temperature, tempFeelsLike, conditions},
         time: {date, time, timezone},
-        sun: {sunrise, sunset}
+        sun: {sunrise, sunset},
+        misc:{uvIndex, humidity, rainProbability, windDirection, windSpeed}
     }
 }
 
@@ -53,7 +54,7 @@ async function setWeatherData(){
     console.log(formattedDate);
 
     try{
-        const weather = await getWeatherData('pateros', formattedDate, '2025-07-10')
+        const weather = await getWeatherData('pateros', formattedDate)
         
         const city = weather.location.city
         const country = weather.location.country
@@ -70,16 +71,32 @@ async function setWeatherData(){
         const sunrise = weather.sun.sunrise
         const sunset = weather.sun.sunset
 
+        const uvIndex = weather.misc.humidity
+        const humidity = weather.misc.humidity
+        const rainProbability = weather.misc.rainProbability
+        const windDirection = weather.misc.windDirection
+        const windSpeed = weather.misc.windSpeed
+
         displayWeatherData(city, country, coord, temperature, tempFeelsLike, condition, time, date, sunset, sunrise)
+        displayMoreWeatherData()
         getTime(timezone)
     }
     catch{
-        
+        loader.innerHTML = `
+        <h2>Error! Try Again Later!</h2>
+        `
     }
     finally{
         loader.style.display = 'none'
     }
 }
+
+// async function futureForecast(){
+//     const data = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays%2Calerts&key=ZDLHZQNCD3ZBG72RLWFD5BLL2&contentType=json`, {mode: 'cors'})
+//     const weatherData = await data.json()
+
+//     const 
+// }
 
 function getTime(timezone){
     const timeDisplay = document.querySelector('.time')
@@ -99,6 +116,10 @@ function getTime(timezone){
         timeDisplay.textContent = formatter.format(currentTime)
     }
 }
+
+
+
+
 
 
 (function(){
