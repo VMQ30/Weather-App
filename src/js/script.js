@@ -55,7 +55,7 @@ async function getWeatherData(city, date){
     }
 }
 
-async function setWeatherData(){
+async function setWeatherData(userCountry){
     const loader = document.querySelector('.loader')
     loader.style.display = 'block'
 
@@ -68,7 +68,7 @@ async function setWeatherData(){
     const formattedDate = `${day}-${month}-${year}`;
 
     try{
-        const weather = await getWeatherData('pateros', formattedDate)
+        const weather = await getWeatherData(userCountry, formattedDate)
 
         const city = weather.location.city
         const country = weather.location.country
@@ -128,6 +128,16 @@ function getTime(timezone){
 
 (function(){
     setDropDown()
-    setWeatherData()
     displaySearchSuggestion()
+
+    const searchbar = document.querySelector('.city-search')
+    const searchSuggestion = document.querySelector('.search-suggestion')
+
+    searchbar.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter'){
+            let country = searchbar.value.trim()
+            setWeatherData(country)
+            searchSuggestion.style.display = 'none'
+        }
+    })
 })()

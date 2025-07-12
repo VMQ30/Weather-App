@@ -1,5 +1,5 @@
 export async function getCities(userInput){
-    const url = `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${userInput}&limit=5`
+    const url = `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${userInput}`
     const setting = {
         method: 'GET',
         headers: {
@@ -19,13 +19,13 @@ export function displaySearchSuggestion(){
     
     let debounceTime
     searchBar.addEventListener('input', ()  => {
-        
+        searchSuggestion.innerHTML = ''
+
         clearTimeout(debounceTime);
         debounceTime = setTimeout( async() => {
             let search = searchBar.value.trim().toLowerCase()
 
             if(search === ''){
-            searchSuggestion.innerHTML = ''
             searchSuggestion.style.display = 'none'
             }
 
@@ -37,14 +37,19 @@ export function displaySearchSuggestion(){
                         const cityContent = document.createElement('div')
                         cityContent.textContent = result.city
                         searchSuggestion.appendChild(cityContent)
+
+                        cityContent.addEventListener('click', () => {
+                            searchBar.value = result.city
+                            searchSuggestion.style.display = 'none'
+                        })
                     })
-                    searchSuggestion.style.display = 'block'
+                    searchSuggestion.style.display = 'flex'
                 }
                 else{
                     const cityContent = document.createElement('p')
                     cityContent.textContent = 'No Cities Found'
                     searchSuggestion.appendChild(cityContent)
-                    searchSuggestion.style.display = 'block'
+                    searchSuggestion.style.display = 'flex'
                 }
                 
             }
