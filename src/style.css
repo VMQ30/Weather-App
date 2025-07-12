@@ -49,6 +49,40 @@ header input::placeholder{
     color: rgba(255, 255, 255, 0.4);
 }
 
+.search{
+    position: relative;
+}
+
+.search-suggestion{
+    position:absolute;
+    top: 100%;
+    left:0;
+    width: 100%;
+    max-height:30vh;
+    overflow-y: auto;
+    z-index: 30;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    display: none;
+    padding-top:20px;
+}
+
+.search-suggestion div{
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0 20px;
+    padding-bottom: 20px;
+}
+
+.search-suggestion p{
+    font-size: 1em;
+    padding: 0 20px;
+    padding-bottom: 20px;
+    font-style:italic;
+    font-weight: 700;
+    opacity: 0.7;
+}
+
 .settings{
     display: flex;
     justify-content: center;
@@ -69,12 +103,14 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    
 }
 
 main{
     padding: 0 5vw;
     height: 85vh;
     width: 100%;
+   
 }
 
 .location-details{
@@ -85,6 +121,7 @@ main{
     isolation: isolate;
     display: flex;
     justify-content: space-between;
+    
 }
 
 .main-info{
@@ -418,10 +455,10 @@ p:hover{
     text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
     box-shadow: none
 }
-/* .location-left,
-.location-right{
-    background-color: rgba(0, 0, 0, 0.1);
-    background: rgba(36, 36, 62, .21);
-    background-color: rgba(0,0,0, 0.2);
-    backdrop-filter: blur(4px);
-} */
+
+.search-suggestion p:hover{
+    background-color: transparent;
+    text-shadow: none;
+    box-shadow: none
+}
+

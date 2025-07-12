@@ -1,5 +1,6 @@
 import { setDropDown } from './dropdown.js'
 import { displayWeatherData, displayMoreWeatherData, displayFutureWeatherData } from './DOM.js'
+import { displaySearchSuggestion } from './cities.js'
 
 async function getWeatherData(city, date){
     const data = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays%2Calerts&key=ZDLHZQNCD3ZBG72RLWFD5BLL2&contentType=json`, {mode: 'cors'})
@@ -43,8 +44,6 @@ async function getWeatherData(city, date){
             }
         )
     }
-
-    console.log(futureArray)
 
     return{
         location: {country, city, coord},
@@ -127,20 +126,8 @@ function getTime(timezone){
     }
 }
 
-function switchMetrics(){
-    const tempMetric = document.querySelector('.temp-metric')
-    const speedMetric = document.querySelector('.speed-metric')
-    const darkMode = document.querySelector('.dark-mode')
-
-    tempMetric.addEventListener("click", () => {
-        
-    })
-}
-
-
-
-
 (function(){
     setDropDown()
     setWeatherData()
+    displaySearchSuggestion()
 })()
