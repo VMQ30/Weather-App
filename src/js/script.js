@@ -1,6 +1,6 @@
 import { setDropDown } from './dropdown.js'
 import { displayWeatherData, displayMoreWeatherData, displayFutureWeatherData } from './DOM.js'
-import { displaySearchSuggestion } from './cities.js'
+import { displaySearchSuggestion, getCurrentLocation } from './cities.js'
 
 async function getWeatherData(city, date){
     const data = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=current%2Cdays%2Calerts&key=ZDLHZQNCD3ZBG72RLWFD5BLL2&contentType=json`, {mode: 'cors'})
@@ -56,7 +56,7 @@ async function getWeatherData(city, date){
 }
 
 async function setWeatherData(userCountry){
-    const loader = document.querySelector('.loader')
+    const loader = document.querySelector('.loader-page')
     loader.style.display = 'block'
 
     const currentDate = new Date();
@@ -97,6 +97,12 @@ async function setWeatherData(userCountry){
         displayMoreWeatherData(uvIndex, humidity, rainProbability, windDirection, windSpeed)
         displayFutureWeatherData(futureArray)
         getTime(timezone)
+        const currentLocationButton = document.querySelector('.current-location')
+        currentLocationButton.addEventListener('click', async() => {
+            const currentLocation = await getCurrentLocation()
+            setWeatherData(currentLocation)
+
+        })
     }
     catch{
         loader.innerHTML = `<h2>Error! Try Again Later!</h2>`
@@ -126,18 +132,23 @@ function getTime(timezone){
     }
 }
 
-(function(){
+(async function(){
     setDropDown()
     displaySearchSuggestion()
+
+    getCurrentLocation()
+    const currentLocation = await getCurrentLocation()
+    await setWeatherData(currentLocation)
 
     const searchbar = document.querySelector('.city-search')
     const searchSuggestion = document.querySelector('.search-suggestion')
 
-    searchbar.addEventListener('keypress', (e) => {
+    searchbar.addEventListener('keypress', async (e) => {
         if(e.key === 'Enter'){
             let country = searchbar.value.trim()
             setWeatherData(country)
             searchSuggestion.style.display = 'none'
         }
     })
+
 })()

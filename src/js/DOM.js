@@ -1,7 +1,7 @@
 import { getSunsetSVG, getSunriseSVG, getHumiditySVG, getUVSVG, getRainProbSVG, getWindDirectionSVG, getWindSpeedSVG } from './svg.js'
 
 export function displayWeatherData(city, country, coord, temperature, tempFeelsLike, condition, time, date, sunset, sunrise){
-    const loader = document.querySelector('.loader')
+    const loader = document.querySelector('.loader-page')
     loader.style.display = 'block'
 
     let mainDisplay = document.querySelector('.location-details');
@@ -63,19 +63,7 @@ export function displayWeatherData(city, country, coord, temperature, tempFeelsL
     let temperatureText = document.querySelector('.temperature')
     let temperatureFeelsLikeText = document.querySelector('.feels-like')
     switchTempMetrics(temperature, tempFeelsLike, temperatureText, temperatureFeelsLikeText)
-
-    // const icon = document.querySelector('.weather-icon')
-    // icon.src = 
 }
-
-// function getIcon(icon){
-//     switch(icon){
-//         case('snow'):
-//             return('./icons/snow')
-        
-        
-//     }
-// }
 
 export function displayMoreWeatherData(uvIndex, humidity, rainProbability, windDirection, windSpeed){
     const display = document.querySelector('.location-more-info')

@@ -53,7 +53,40 @@ export function displaySearchSuggestion(){
                 }
                 
             }
-        }, 500)
+        }, 200)
     })   
 }
 
+export function getCurrentLocation(){
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const latitude = position.coords.latitude
+            const longitude = position.coords.longitude
+
+            try{
+                const city = await getCityCoords(latitude, longitude)
+                resolve(city)
+
+            }
+            catch{
+                console.log('Unable to Retrieve Location')
+            }
+        })
+    })
+}
+
+function errorLocation(){
+    console.log('Unable to Retrieve Location')
+}
+
+async function getCityCoords(latitude, longitude){
+    const apiKey = 'd7e5c47b9c764d7897bb2857e11389df'
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`
+
+    const data = await fetch(url, {mode: 'cors'})
+    const result = await data.json()
+    const currentCity = result.results[0].components.city
+
+    console.log(currentCity)
+    return(currentCity)
+}
